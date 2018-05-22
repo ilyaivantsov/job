@@ -1,0 +1,14 @@
+{
+  "name": "blockchain-web3js",
+  "version": "1.0.0",
+  "description": "Job project",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ethereumjs-testrpc": "^6.0.3"
+  },
+  "main": "index.js",
+  "author": "Ilya Ivantsov",
+  "license": "MIT"
+}

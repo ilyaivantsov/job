@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Blockchain</title>
+	<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+</head>
+<body>
+	<h1>Hi a</h1>
+
+	<script type="text/javascript">
+		
+if (typeof web3 !== 'undefined') {
+  web3 = new Web3(web3.currentProvider);
+} else {
+  // set the provider you want from Web3.providers
+  web3 = new Web3(new Web3.providers.HttpProvider("http://192.168.99.100:3001"));
+}
+web3.eth.defaultAccount = web3.eth.accounts[0];
+	</script>
+</body>
+</html>
