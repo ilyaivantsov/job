@@ -4,19 +4,100 @@
 	<meta charset="UTF-8">
 	<title>Blockchain</title>
 	<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 </head>
 <body>
-	<h1>Hi </h1>
 
-	<script type="text/javascript">
-		
+<div class="container">
+		<div class="row">
+			<div class="col-6 mx-auto mt-5">
+<form action="" method="POST" id="toEth">
+  <div class="form-group row">
+    <label for="staticEmail" class="col-sm-2 col-form-label">HI:</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="staticName" value="">
+    </div>
+  </div>
+	<div class="form-group">
+		<label for="exampleInputLender">Имя</label>
+		<input type="text" class="form-control" id="exName"  placeholder="Имя" name="name">
+	</div>
+
+	<div class="form-group">
+		<label for="exampleInputAmount">Возраст</label>
+		<input type="text" class="form-control" id="exAge" placeholder="Возраст" name="age" >
+	</div>
+	
+	<button type="submit" class="btn btn-primary">Занести</button>
+</form>
+			</div>
+		</div>
+	</div>
+
+
+<script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
+<script type="text/javascript">
 if (typeof web3 !== 'undefined') {
   web3 = new Web3(web3.currentProvider);
 } else {
   // set the provider you want from Web3.providers
-  web3 = new Web3(new Web3.providers.HttpProvider("http://192.168.99.100:3001"));
+  web3 = new Web3(new Web3.providers.HttpProvider("http://192.168.99.100:8545"));
 }
 web3.eth.defaultAccount = web3.eth.accounts[0];
+  var FirstContract = web3.eth.contract([
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_fName",
+				"type": "string"
+			},
+			{
+				"name": "_age",
+				"type": "uint256"
+			}
+		],
+		"name": "setInstructor",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getInstructor",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+]);
+
+  var First = FirstContract.at('0x8c1ed7e19abaa9f23c476da86dc1577f1ef401f5');
+  First.getInstructor(function(err,res){
+     if (!err){
+        $('#staticName')[0].value = res[0] || "nobody";
+     }
+     else{
+     	 console.log(err);
+     }
+  });
+  $('#toEth').submit(function(){
+  	First.setInstructor($('#exName').val(),+$('#exAge').val());
+  })
 	</script>
 </body>
 </html>
